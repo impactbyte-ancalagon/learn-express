@@ -57,6 +57,21 @@ app.get("/furnitures", (req, res) => {
   })
 })
 
+// Search furniture by name
+
+app.get("/furnitures/search", (req, res) => {
+  const queryName = req.query.name.toLowerCase()
+
+  const foundFurniture = furnitures.data.find(furniture => {
+    return furniture.name.toLowerCase().includes(queryName)
+  })
+
+  res.send({
+    query: req.query,
+    data: foundFurniture
+  })
+})
+
 // Get furniture by id
 
 app.get("/furnitures/:id", (req, res) => {
