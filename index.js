@@ -7,7 +7,7 @@ const port = 3000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
 
-const furnitures = {
+let furnitures = {
   next_id: 6,
   data: [
     {
@@ -68,8 +68,12 @@ app.post("/furnitures", (req, res) => {
     price: req.body.price
   }
 
-  furnitures.data.push(newFurniture)
-  furnitures.next_id += 1
+  const newFurnitures = {
+    next_id: furnitures.next_id + 1,
+    data: furnitures.data.concat(newFurniture)
+  }
+
+  furnitures = newFurnitures
 
   res.send({
     newData: newFurniture,
