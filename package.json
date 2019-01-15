@@ -1,0 +1,15 @@
+{
+  "name": "learn-express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:impactbyte-ancalagon/learn-express.git",
+  "author": "M Haidar Hanif <git@mhaidarhanif.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "0.18.0",
+    "colors": "1.3.3",
+    "express": "4.16.4",
+    "node-fetch": "2.3.0",
+    "puppeteer": "1.11.0"
+  }
+}
