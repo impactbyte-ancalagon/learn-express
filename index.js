@@ -1,7 +1,5 @@
 const express = require("express")
 
-const circle = require("./examples/circle")
-
 const app = express()
 const port = 3000
 
@@ -46,8 +44,12 @@ app.get("/furnitures", (req, res) => {
   })
 })
 
-app.get("/furnitures", (req, res) => {
-  res.send()
+app.get("/furnitures/:id", (req, res) => {
+  res.send({
+    data: furnitures.find(furniture => {
+      return furniture.id === Number(req.params.id)
+    })
+  })
 })
 
 app.listen(port, err => {
