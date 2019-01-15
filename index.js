@@ -7,6 +7,8 @@ const port = 3000
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
 
+// Declare initial furnitures data
+
 let furnitures = {
   next_id: 6,
   data: [
@@ -38,11 +40,15 @@ let furnitures = {
   ]
 }
 
+// Get Hello World
+
 app.get("/", (req, res) => {
   res.send({
     message: "Hello World"
   })
 })
+
+// Get all furnitures
 
 app.get("/furnitures", (req, res) => {
   res.send({
@@ -50,6 +56,8 @@ app.get("/furnitures", (req, res) => {
     data: furnitures.data
   })
 })
+
+// Get furniture by id
 
 app.get("/furnitures/:id", (req, res) => {
   const furniture = furnitures.data.find(furniture => {
@@ -60,6 +68,8 @@ app.get("/furnitures/:id", (req, res) => {
     data: furniture
   })
 })
+
+// Save new furniture
 
 app.post("/furnitures", (req, res) => {
   const newFurniture = {
