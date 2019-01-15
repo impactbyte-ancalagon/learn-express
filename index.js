@@ -1,35 +1,42 @@
 const express = require("express")
+const bodyParser = require("body-parser")
 
 const app = express()
 const port = 3000
 
-const furnitures = [
-  {
-    id: 1,
-    name: "Gayung",
-    price: 15000
-  },
-  {
-    id: 2,
-    name: "Ember",
-    price: 20000
-  },
-  {
-    id: 3,
-    name: "Bakwan Pel",
-    price: 45000
-  },
-  {
-    id: 4,
-    name: "Wajan",
-    price: 80000
-  },
-  {
-    id: 5,
-    name: "Baskom",
-    price: 21000
-  }
-]
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded())
+
+const furnitures = {
+  next_id: 6,
+  data: [
+    {
+      id: 1,
+      name: "Gayung",
+      price: 15000
+    },
+    {
+      id: 2,
+      name: "Ember",
+      price: 20000
+    },
+    {
+      id: 3,
+      name: "Bakwan Pel",
+      price: 45000
+    },
+    {
+      id: 4,
+      name: "Wajan",
+      price: 80000
+    },
+    {
+      id: 5,
+      name: "Baskom",
+      price: 21000
+    }
+  ]
+}
 
 app.get("/", (req, res) => {
   res.send({
@@ -39,16 +46,34 @@ app.get("/", (req, res) => {
 
 app.get("/furnitures", (req, res) => {
   res.send({
-    count: furnitures.length,
-    data: furnitures
+    count: furnitures.data.length,
+    data: furnitures.data
   })
 })
 
 app.get("/furnitures/:id", (req, res) => {
+  const furniture = furnitures.data.find(furniture => {
+    return furniture.id === Number(req.params.id)
+  })
+
   res.send({
-    data: furnitures.find(furniture => {
-      return furniture.id === Number(req.params.id)
-    })
+    data: furniture
+  })
+})
+
+app.post("/furnitures", (req, res) => {
+  const newFurniture = {
+    id: furnitures.next_id,
+    name: req.body.name,
+    price: req.body.price
+  }
+
+  furnitures.data.push(newFurniture)
+  furnitures.next_id += 1
+
+  res.send({
+    newData: newFurniture,
+    data: furnitures
   })
 })
 
